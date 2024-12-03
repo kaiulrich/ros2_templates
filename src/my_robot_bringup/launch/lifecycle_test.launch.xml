@@ -1,0 +1,4 @@
+<launch>
+    <let name="number_node_name" value="my_number_publisher" />
+    <node pkg="lifecycle_cpp" exec="number_publisher" name="$(var number_node_name)"/>
+</launch>
