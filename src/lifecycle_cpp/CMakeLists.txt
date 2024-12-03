@@ -19,6 +19,7 @@ ament_target_dependencies(lifecycle_node_manager rclcpp example_interfaces rclcp
 
 install(TARGETS
   number_publisher
+  lifecycle_node_manager
   DESTINATION lib/${PROJECT_NAME}/
 )
 

@@ -26,7 +26,7 @@ public:
             this->create_wall_timer(std::chrono::milliseconds((int)(1000.0 / publish_frequency_)),
                                     std::bind(&NumberPublisherNode::publishNumber, this));
         number_timer_->cancel();
-        return LifecycleCallbackReturn::ERROR;
+        return LifecycleCallbackReturn::SUCCESS;
     }
 
     // Destroy ROS2 Communication, disconnect to hardware

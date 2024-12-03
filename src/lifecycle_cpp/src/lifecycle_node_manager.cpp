@@ -6,7 +6,7 @@ class LifecycleNodeManager : public rclcpp::Node
 public:
     LifecycleNodeManager() : Node("lifecycle_manager")
     {
-        this->declare_parameter("managed_node_name", std::vector<int>({0, 0, 0}));
+        this->declare_parameter("managed_node_name", "number_publisher");
         std::string node_name = this->get_parameter("managed_node_name").as_string();
         service_change_state_name = "/" + node_name + "/change_state";
 
@@ -21,12 +21,12 @@ private:
 
     void initialization_sequence()
     {
-        rclcpp::Rate loop_rate(1000.0);
+      
         RCLCPP_INFO(this->get_logger(), "Trying to switch to configuring");
         change_state(lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE, "configure");
         RCLCPP_INFO(this->get_logger(), "Configuring OK, now inactive");
         
-        loop_rate.sleep();
+        std::this_thread::sleep_for(std::chrono::seconds(3));
         
         RCLCPP_INFO(this->get_logger(), "Trying to switch to activating");
         change_state(lifecycle_msgs::msg::Transition::TRANSITION_ACTIVATE, "activate");
