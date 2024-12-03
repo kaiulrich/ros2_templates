@@ -1,0 +1,8 @@
+.vscode
+**/.vscode
+build
+install
+bags
+log
+**/build
+**/install

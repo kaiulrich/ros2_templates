@@ -1,0 +1,23 @@
+Specs for the robot:
+
+- left_wheel link:
+    - cylinder (radius 0.1, length 0.05)
+    - color: grey
+- base_left_wheel_joint
+    - continuous joint
+    - x origin offset: -0.15
+    - y origin offset: to compute, same principle as for right wheel
+- caster_wheel_link:
+    - sphere (radius 0.05)
+    - color: grey
+- base_caster_wheel_joint:
+    - fixed joint
+    - x offset: 0.2
+    - z offset: to compute
+- base_footprint:
+    - empty link
+- base_joint:
+    - parent: base_footprint, child: base_link
+    - fixed joint
+    - offset: to compute
+
