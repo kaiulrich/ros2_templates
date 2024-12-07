@@ -1,39 +1,31 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/msg/int64.hpp"
 
+#include "components_cpp/NumberPublisher.hpp"
+
 using namespace std::chrono_literals;
 
-class NumberPublisherNode : public rclcpp::Node
+namespace my_namespace
 {
-public:
-    NumberPublisherNode() : Node("number_publisher")
+
+    NumberPublisher::NumberPublisher(const rclcpp::NodeOptions &options) : Node("number_publisher", options)
     {
         number_ = 2;
 
         number_publisher_ = this->create_publisher<example_interfaces::msg::Int64>("number", 10);
         number_timer_ = this->create_wall_timer(1000ms,
-                                                std::bind(&NumberPublisherNode::publishNumber, this));
+                                                std::bind(&NumberPublisher::publishNumber, this));
         RCLCPP_INFO(this->get_logger(), "Number publisher has been started.");
     }
 
-private:
-    void publishNumber()
+    void NumberPublisher::publishNumber()
     {
         auto msg = example_interfaces::msg::Int64();
         msg.data = number_;
         number_publisher_->publish(msg);
     }
 
-    int number_;
-    rclcpp::Publisher<example_interfaces::msg::Int64>::SharedPtr number_publisher_;
-    rclcpp::TimerBase::SharedPtr number_timer_;
-};
+} // namespace mynamespace
 
-int main(int argc, char **argv)
-{
-    rclcpp::init(argc, argv);
-    auto node = std::make_shared<NumberPublisherNode>();
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
-}
+#include "rclcpp_components/register_node_macro.hpp"
+RCLCPP_COMPONENTS_REGISTER_NODE(my_namespace::NumberPublisher)
